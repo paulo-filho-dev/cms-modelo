@@ -37,6 +37,13 @@ class Admin_Controller extends MY_Controller
         //redirect them to the login page
         redirect('admin/user/login', 'refresh');
       }
+      $this->data['current_user'] = $this->ion_auth->user()->row();
+      $this->data['current_user_menu'] = '';
+      if($this->ion_auth->in_group('admin'))
+      {
+        $this->data['current_user_menu'] = $this->load->view('templates/user_menu_admin_view.php', NULL, TRUE);
+      }
+
       $this->data['page_title'] = 'CMS - PCC';
     }
    
