@@ -6,11 +6,10 @@
     <li class="breadcrumb-item">
         <a href="<?php echo site_url('admin/groups/');?>">Grupos</a>
     </li>
-    <li class="breadcrumb-item active">Editar Grupo</li>
+    <li class="breadcrumb-item active">Editar</li>
 </ol>
 <div class="col-md-6">
     <h2>Editar Grupo</h2>
-    <?php echo $this->session->flashdata('message');?>
     <?php echo form_open('',array('class'=>'form-horizontal'));?>
     <div class="form-group">
         <?php echo form_label('Nome','group_name');?>

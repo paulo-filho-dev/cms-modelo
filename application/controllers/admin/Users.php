@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Groups extends Admin_Controller
+class Users extends Admin_Controller
 {
 
   function __construct()
@@ -9,28 +9,30 @@ class Groups extends Admin_Controller
     parent::__construct();
     if(!$this->ion_auth->in_group('admin'))
     {
-      $this->session->set_flashdata('message','Você não tem permissão para visitar a página de Grupos.');
+      $this->session->set_flashdata('message','Você não tem permissão para visitar a página de Usuários.');
       redirect('admin','refresh');
     }
   }
 
   public function index()
   {
-    $this->data['page_title'] = 'Grupos';
-    $this->data['groups'] = $this->ion_auth->groups()->result();
-    $this->render('admin/groups/list_groups_view');
+    $this->data['page_title'] = 'Usuários';
+    $this->data['users'] = $this->ion_auth->users()->result();
+    $this->render('admin/users/list_users_view');
   }
   public function create()
   {
-    $this->data['page_title'] = 'Criar Grupo';
+    $this->data['page_title'] = 'Criar Usuário';
     $this->load->library('form_validation');
-    $this->form_validation->set_rules('group_name','Nome','trim|required|is_unique[groups.name]');
-    $this->form_validation->set_rules('group_description','Descrição','trim|required');
+    $this->form_validation->set_rules('username','Nome','trim|required|is_unique[users.username]');
+    $this->form_validation->set_rules('email','Email','trim|required');
+    $this->form_validation->set_rules('password','Senha','trim|required');
+    $this->form_validation->set_rules('password','Confirmar Senha','trim|required');
   
     if($this->form_validation->run()===FALSE)
     {
       $this->load->helper('form');
-      $this->render('admin/groups/create_group_view');
+      $this->render('admin/users/create_user_view');
     }
     else
     {
